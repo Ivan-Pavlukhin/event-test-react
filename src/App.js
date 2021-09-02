@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { Suspense } from 'react';
+// import { useDispatch } from 'react-redux'
+import{Switch} from 'react-router-dom'
+import SiteHeader from './components/SiteHeader';
+
+import Admin from './views/Admin'
+// import style from './App.module.style.css'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <SiteHeader />
+      <Suspense fallback={<p1>LOADING...</p1>}>
+        <Switch>
+          <Admin path="/admin" />
+        </Switch>
+      </Suspense>
     </div>
+
   );
 }
 
