@@ -1,6 +1,7 @@
 import {  useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { eventHallsOperations, eventHallsSelectors} from '../../redux/eventHallsList'
+import { eventsOperations } from '../../redux/events';
 
 export default function Analytics(props) {
     const dispatch = useDispatch()
@@ -14,13 +15,16 @@ export default function Analytics(props) {
     const handelCity = ({ target }) => {
         setCity(target.value)
     }
+    const [eventName, setEventName] = useState('')
+    const handelEventName = ({ target }) => {
+        setEventName(target.value)
+    }
     const [concertHall, setConcertHall] = useState('')
     const handelConcertHall = ({ target }) => {
         setConcertHall(target.value)
     }
 
     const viewHall = useSelector(eventHallsSelectors.getViewEventHall)
-
     const handelChangePrice = ({target}) => {
         setCurrentPrice(target.value)
     }
@@ -29,6 +33,11 @@ export default function Analytics(props) {
 
     const handelChangeAbout = ({ target }) => {
         setAbout(target.value)
+    }
+
+    const [eventStatus, setEventStatus] = useState(false)
+    const handelEventStatus = () => {
+        setEventStatus(!eventStatus)
     }
     // const [idHallTemplate, setIdHallTemplate] = useState('')
     // setIdHallTemplate(useSelector(eventHallsSelectors.getId))
@@ -39,18 +48,21 @@ export default function Analytics(props) {
     const [row4, setRow4] = useState({active: false, price: 0})
     const [row5, setRow5] = useState({active: false, price: 0})
 
+    const [price, setPrice] = useState(0)
+    const [active, setActive] = useState(false)
+
     const handelClickOnRow = (i) => (e) => {
         switch (i) {
-            case 1:
+            case 0:
                 setRow1({price: currentPrice, active: true})
                 break;
-            case 2:
+            case 1:
                 setRow2({price: currentPrice, active: true})
                 break;
-            case 3: 
+            case 2: 
                 setRow3({price: currentPrice, active: true})
                 break;
-            case 4: 
+            case 3: 
                 setRow4({price: currentPrice, active: true})
                 break;
             case 5: 
@@ -65,7 +77,7 @@ export default function Analytics(props) {
 
     const handelSubmit = (e) => {
         e.preventDefault()
-        dispatch(eventHallsOperations.addEvent())
+        dispatch(eventsOperations.addEvent({eventStatus, date, city, eventName, concertHall, about, row1, row2, row3, row4}))
     }
     
     return (
@@ -77,32 +89,39 @@ export default function Analytics(props) {
                 
                 <form onSubmit={handelSubmit}>
                     <label> Введи город 
-                        <input type="text" onChange={handelCity}/>
+                        <input type="text" name="city" onChange={handelCity}/>
                     </label>
                     <label> Введи название концертного-зала 
-                        <input type="text" onChange={handelConcertHall}/>
+                        <input type="text" name="hallName" onChange={handelConcertHall}/>
+                    </label>
+                    <label> Введи название концерта 
+                        <input type="text" name="eventName" onChange={handelEventName}/>
+                    </label>
+                    <label> выбери статус концерта.
+                        <input type="checkbox" name="eventStatus" onClick={handelEventStatus} checked={eventStatus} />
                     </label>
                     <label> Выбери дату 
-                        <input id="datetime" type="datetime-local" onChange={handelDate}></input>
+                        <input id="datetime" name="dateEvent" type="datetime-local" onChange={handelDate}></input>
                     </label>
 
                     <label> Выбери цену за ряд 
                         <input name="price" type="number" onChange={handelChangePrice }/>
                     </label>
-                    {/* {viewHall.size.map(({row}, index) => <div>
-                        <button type="button" onClick={handelClickOnRow(index + 1)}>row   <span>
+                    {/* {viewHall.size[0].hall.map((item, index) => 
+                        < div key="row">
+                            <button type="button" onClick={handelClickOnRow(index)}>row  {index + 1} 
+                                {item.row.map((item, index) =>
+                                    <span>
+                                     {`place: ${item.name}, price ${item.price}, active: ${item.active}. `}
+                                </span>)}
                             
-                             {row.map((item, index) => {
-                                // item.place = index + 1
-                                const name = index + 1
-                                return `place: ${name}, price ${row1Price}. `
-                            })}
-                           </span>
-                          </button>
-                    </div>)} */}
-                    <div>
-                        <button type="button" onClick={handelClickOnRow(1)}>row   <span>
-                             {viewHall.size[0].row.map((item, index) => {
+                            </button>
+                        </div>
+                    )} */}
+
+                     <div>
+                        <button type="button" onClick={handelClickOnRow(0)}>row   <span>
+                             {viewHall.size[0].hall[0].row.map((item, index) => {
                                 // item.place = index + 1
                                 const name = index + 1
                                 return `place: ${name}, price ${row1.price}, active: ${row1.active}. `
@@ -111,8 +130,8 @@ export default function Analytics(props) {
                           </button>
                     </div>    
                     <div>
-                        <button type="button" onClick={handelClickOnRow(2)}>row   <span>
-                             {viewHall.size[0].row.map((item, index) => {
+                        <button type="button" onClick={handelClickOnRow(1)}>row   <span>
+                             {viewHall.size[0].hall[1].row.map((item, index) => {
                                 // item.place = index + 1
                                 const name = index + 1
                                 return `place: ${name}, price ${row2.price}, active: ${row2.active}. `
@@ -121,8 +140,8 @@ export default function Analytics(props) {
                           </button>
                     </div>
                     <div>
-                        <button type="button" onClick={handelClickOnRow(3)}>row   <span>
-                             {viewHall.size[0].row.map((item, index) => {
+                        <button type="button" onClick={handelClickOnRow(2)}>row   <span>
+                             {viewHall.size[0].hall[2].row.map((item, index) => {
                                 // item.place = index + 1
                                 const name = index + 1
                                 return `place: ${name}, price ${row3.price}, active: ${row3.active}. `
@@ -131,8 +150,8 @@ export default function Analytics(props) {
                           </button>
                     </div>
                     <div>
-                        <button type="button" onClick={handelClickOnRow(4)}>row   <span>
-                             {viewHall.size[0].row.map((item, index) => {
+                        <button type="button" onClick={handelClickOnRow(3)}>row   <span>
+                             {viewHall.size[0].hall[3].row.map((item, index) => {
                                 // item.place = index + 1
                                 const name = index + 1
                                 return `place: ${name}, price ${row4.price}, active: ${row4.active}. `
@@ -140,16 +159,16 @@ export default function Analytics(props) {
                            </span>
                           </button>
                     </div>
-                    <div>
+                {/*    <div>
                         <button type="button" onClick={handelClickOnRow(5)}>row   <span>
-                             {viewHall.size[0].row.map((item, index) => {
+                             {viewHall.size[0].hall[4].row.map((item, index) => {
                                 // item.place = index + 1
                                 const name = index + 1
                                 return `place: ${name}, price ${row5.price}, active: ${row5.active}. `
                             })}
                            </span>
                           </button>
-                    </div>
+                    </div> */}
                     <label>About event</label>
                     <textarea onChange={handelChangeAbout}></textarea>
                     <button type="submit">Add Event</button>

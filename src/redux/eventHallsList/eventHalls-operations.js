@@ -20,7 +20,7 @@ const fetchEventHalls = () => dispatch => {
     dispatch(fetchEventHallsRequest())
 
     axios
-        .get('/api/v1/concerthalls')
+        .get('/api/v1/concert-halls')
         .then(({ data }) => dispatch(fetchEventHallsSuccess(data.result)))
         .catch(error => dispatch(fetchEventHallsError(error.message)))
 }
@@ -29,7 +29,7 @@ const addEvent = (name, city, date, hall, about) => dispatch => {
   dispatch(addEventHallRequest())
 
   axios
-    .post('events-test.events')
+    .post('/api/v1/events')
     .then(({ data }) => dispatch(addEventHallSuccess(data)))
     .catch(error => dispatch(addEventHallError(error.message)))
 }

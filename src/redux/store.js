@@ -12,6 +12,7 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 // } from 'redux-persist';
 
 import eventHallsReducer from './eventHallsList/eventHallsList-reducer';
+import eventsReducer from './events/events-reducer';
 // import authReducer from './auth/auth-reducers';
 
 // const middleware = [
@@ -31,6 +32,7 @@ import eventHallsReducer from './eventHallsList/eventHallsList-reducer';
 const store = configureStore({
   reducer: {
     eventHalls: eventHallsReducer,
+    events: eventsReducer
   },
 //   middleware,
   devTools: process.env.NODE_ENV === 'development',
