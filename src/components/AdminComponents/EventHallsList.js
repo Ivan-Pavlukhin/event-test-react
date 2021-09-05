@@ -14,11 +14,14 @@ export default function EventHallsList() {
         dispatch(idEventHall(id))
     }
     
+    const loading = useSelector(eventHallsSelectors.getLoading)
+
     const eventsHalls = useSelector(eventHallsSelectors.getEventHalls) 
 
     return (
         <div>
             <h2>Event Halls List</h2>
+            {loading && <h2>Идёт загрузка...</h2>}
             <ul>
                 {eventsHalls.map(item => <li key={item._id}>
                     <Link

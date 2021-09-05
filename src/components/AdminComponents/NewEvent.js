@@ -2,6 +2,7 @@ import {  useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { eventHallsOperations, eventHallsSelectors} from '../../redux/eventHallsList'
 import { eventsOperations } from '../../redux/events';
+import Row from '../concertHall/Row';
 
 export default function Analytics(props) {
     const dispatch = useDispatch()
@@ -48,8 +49,7 @@ export default function Analytics(props) {
     const [row4, setRow4] = useState({active: false, price: 0})
     const [row5, setRow5] = useState({active: false, price: 0})
 
-    const [price, setPrice] = useState(0)
-    const [active, setActive] = useState(false)
+
 
     const handelClickOnRow = (i) => (e) => {
         switch (i) {
@@ -98,77 +98,20 @@ export default function Analytics(props) {
                         <input type="text" name="eventName" onChange={handelEventName}/>
                     </label>
                     <label> выбери статус концерта.
-                        <input type="checkbox" name="eventStatus" onClick={handelEventStatus} checked={eventStatus} />
+                        <input type="checkbox" name="eventStatus" onChange={handelEventStatus} checked={eventStatus} />
                     </label>
                     <label> Выбери дату 
                         <input id="datetime" name="dateEvent" type="datetime-local" onChange={handelDate}></input>
                     </label>
 
-                    <label> Выбери цену за ряд 
+                    <label> Выбери цену за место 
                         <input name="price" type="number" onChange={handelChangePrice }/>
                     </label>
-                    {/* {viewHall.size[0].hall.map((item, index) => 
-                        < div key="row">
-                            <button type="button" onClick={handelClickOnRow(index)}>row  {index + 1} 
-                                {item.row.map((item, index) =>
-                                    <span>
-                                     {`place: ${item.name}, price ${item.price}, active: ${item.active}. `}
-                                </span>)}
-                            
-                            </button>
+                    {viewHall.size[0].hall.map((item, index) =>
+                        <div key={item.rowName}>
+                            <Row row={item} price={currentPrice} />
                         </div>
-                    )} */}
-
-                     <div>
-                        <button type="button" onClick={handelClickOnRow(0)}>row   <span>
-                             {viewHall.size[0].hall[0].row.map((item, index) => {
-                                // item.place = index + 1
-                                const name = index + 1
-                                return `place: ${name}, price ${row1.price}, active: ${row1.active}. `
-                            })}
-                           </span>
-                          </button>
-                    </div>    
-                    <div>
-                        <button type="button" onClick={handelClickOnRow(1)}>row   <span>
-                             {viewHall.size[0].hall[1].row.map((item, index) => {
-                                // item.place = index + 1
-                                const name = index + 1
-                                return `place: ${name}, price ${row2.price}, active: ${row2.active}. `
-                            })}
-                           </span>
-                          </button>
-                    </div>
-                    <div>
-                        <button type="button" onClick={handelClickOnRow(2)}>row   <span>
-                             {viewHall.size[0].hall[2].row.map((item, index) => {
-                                // item.place = index + 1
-                                const name = index + 1
-                                return `place: ${name}, price ${row3.price}, active: ${row3.active}. `
-                            })}
-                           </span>
-                          </button>
-                    </div>
-                    <div>
-                        <button type="button" onClick={handelClickOnRow(3)}>row   <span>
-                             {viewHall.size[0].hall[3].row.map((item, index) => {
-                                // item.place = index + 1
-                                const name = index + 1
-                                return `place: ${name}, price ${row4.price}, active: ${row4.active}. `
-                            })}
-                           </span>
-                          </button>
-                    </div>
-                {/*    <div>
-                        <button type="button" onClick={handelClickOnRow(5)}>row   <span>
-                             {viewHall.size[0].hall[4].row.map((item, index) => {
-                                // item.place = index + 1
-                                const name = index + 1
-                                return `place: ${name}, price ${row5.price}, active: ${row5.active}. `
-                            })}
-                           </span>
-                          </button>
-                    </div> */}
+                    )}
                     <label>About event</label>
                     <textarea onChange={handelChangeAbout}></textarea>
                     <button type="submit">Add Event</button>

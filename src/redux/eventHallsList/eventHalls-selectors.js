@@ -4,6 +4,8 @@ const getEventHalls = state => state.eventHalls.eventHalls;
 
 const getId = state => state.eventHalls.idHall;
 
+const getLoading = state => state.eventHalls.loading;
+
 const getViewEventHall = createSelector([getId, getEventHalls], (id, eventHalls) => {
     if (!id && !eventHalls) {
         return
@@ -16,5 +18,6 @@ const getViewEventHall = createSelector([getId, getEventHalls], (id, eventHalls)
 export default {
     getEventHalls,
     getViewEventHall,
-    getId
+    getId,
+    getLoading
 }
