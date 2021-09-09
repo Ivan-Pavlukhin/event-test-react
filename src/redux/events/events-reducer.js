@@ -8,13 +8,13 @@ import {
   addEventRequest,
   addEventSuccess,
   addEventError,
-  // idEvent,
+  idEvent,
   // deleteEventsSuccess,
   // deleteEventsRequest,
   // deleteEventsError,
-  // updateEventsSuccess,
-  // updateEventsRequest,
-  // updateEventsError,
+  updateEventSuccess,
+  updateEventRequest,
+  updateEventError,
 } from "./events-action"
 
 const initialState = [];
@@ -23,7 +23,10 @@ const eventsReducer = createReducer(initialState, {
     [fetchEventsSuccess]: (_, { payload }) => payload,
     [addEventSuccess]: (state, { payload }) => [...state, payload],
     // [deleteEventsSuccess]: (state, { payload }) => state.filter(({ id }) => id !== payload),
-    // [updateEventsSuccess]: (state, {payload}) => [...state, payload.data]
+    [updateEventSuccess]: (state, {payload}) => {
+      const newState = state.filter(event => event._id !== payload._id)
+      return [...newState, payload]
+    }
 })
 
 const loadingReducer = createReducer(false, {
@@ -36,20 +39,20 @@ const loadingReducer = createReducer(false, {
   // [deleteEventsRequest]: () => true,
   // [deleteEventsSuccess]: () => false,
   // [deleteEventsError]: () => false,
-  // [updateEventsRequest]: () => true,
-  // [updateEventsError]: () => false,
-  // [updateEventsSuccess]: () => false,
+  [updateEventRequest]: () => true,
+  [updateEventError]: () => false,
+  [updateEventSuccess]: () => false,
 });
 
-// const viewEventReducer = createReducer('', {
-//   [idEvent]: (state, {payload}) => payload
-// })
+const changeEventReducer = createReducer('', {
+  [idEvent]: (state, {payload}) => payload
+})
 
 const errorReducer = createReducer(null, {})
 
 export default combineReducers({
     events: eventsReducer,
-    // idEvent: viewEventReducer,
+    idEvent: changeEventReducer,
     loading: loadingReducer,
     error: errorReducer
 })

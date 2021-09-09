@@ -9,12 +9,12 @@ import {
   // deleteEventHallsRequest,
   // deleteEventHallsSuccess,
   // deleteEventHallsError,
-  // updateEventHallsRequest,
-  // updateEventHallsSuccess,
-  // updateEventHallsError,
+  updateEventRequest,
+  updateEventSuccess,
+  updateEventError,
 } from './events-action';
 
-axios.defaults.baseURL = 'https://events-tests.herokuapp.com'
+axios.defaults.baseURL = 'http://localhost:4000/'
 
 const fetchEvents = () => dispatch => {
     dispatch(fetchEventsRequest())
@@ -26,8 +26,8 @@ const fetchEvents = () => dispatch => {
 }
 
 const addEvent = event => dispatch => {
-  const {eventStatus, date, city, eventName, concertHall, about, row1, row2, row3, row4} = event
-  const newEvent = {active: eventStatus, eventName, dateEvent: date, city, hallName: concertHall, aboutEvent: about, size:{ hall:[{row1}, {row2}, {row3}, {row4}]}  }
+  const {eventStatus, date, city, eventName, concertHall, about, size} = event
+  const newEvent = {active: eventStatus, eventName, dateEvent: date, city, hallName: concertHall, aboutEvent: about, size:{ hall: size}  }
   dispatch(addEventRequest())
 
   axios
@@ -36,4 +36,16 @@ const addEvent = event => dispatch => {
     .catch(error => dispatch(addEventError(error.message)))
 }
 
-export default { fetchEvents, addEvent }
+const updateEvent = event => dispatch => {
+  const {eventStatus, id, date, city, eventName, concertHall, about, size} = event
+  console.log(size);
+  const updateEvent = {active: eventStatus, eventName, dateEvent: date, city, hallName: concertHall, aboutEvent: about, size}
+  dispatch(updateEventRequest())
+
+  axios
+  .put(`/api/v1/events/${id}`, updateEvent)
+  .then(({data}) => dispatch(updateEventSuccess(data.result)))
+  .catch(error => dispatch(updateEventError(error)))
+}
+
+export default { fetchEvents, addEvent, updateEvent }

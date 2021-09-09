@@ -1,18 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function Place({place, price, rowName}) {
-    const [newPrice, setNewPrice] = useState(0)
-    const [status, setStatus] = useState(false)
-
-    const handelClick = ({ target }) => {
-        setNewPrice(price)
-        setStatus(!status)
-
-    }
-
-    return (<button type="button" onClick={handelClick}>
-            <span>Place {place.place}: price: {newPrice},</span><br />
-        <span>R: { rowName} status: {status ? 'active' : 'not active'}.</span>
-
-    </button>)
+export default function Place({
+  iRow,
+  place,
+  price,
+  rowName,
+  handelClickPlace,
+  iPlace,
+}) {
+  return (
+    <button type="button" onClick={handelClickPlace(iRow, iPlace)}>
+      <span>
+        Place {place.place}: price: {place.price}
+      </span>
+      <br />
+      <span>
+        R: {rowName} status: {place.active ? "active" : "no active"}.
+      </span>
+    </button>
+  );
 }

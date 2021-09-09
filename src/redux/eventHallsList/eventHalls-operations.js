@@ -14,7 +14,7 @@ import {
   // updateEventHallsError,
 } from './eventHallsList-action';
 
-axios.defaults.baseURL = 'https://events-tests.herokuapp.com'
+axios.defaults.baseURL = 'http://localhost:4000/'
 
 const fetchEventHalls = () => dispatch => {
     dispatch(fetchEventHallsRequest())

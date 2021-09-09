@@ -4,17 +4,17 @@ const getEvents = state => state.events.events;
 
 const getId = state => state.events.idEvent;
 
-// const getViewEventHall = createSelector([getId, getEventHalls], (id, eventHalls) => {
-//     if (!id && !eventHalls) {
-//         return
-//     }
+const getChangeEvent = createSelector([getId, getEvents], (id, events) => {
+    if (!id && !events) {
+        return
+    }
 
-//     const eventHall = eventHalls.filter(hall => hall._id === id)
-//     return eventHall[0]
-// })
+    const [changeEvent] = events.filter(event => event._id === id)
+    return changeEvent
+})
 
 export default {
     getEvents,
-    // getViewEventHall,
+    getChangeEvent,
     getId
 }

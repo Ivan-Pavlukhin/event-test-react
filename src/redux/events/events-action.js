@@ -12,8 +12,8 @@ export const deleteEventsRequest = createAction('Events/deleteEventsRequest')
 export const deleteEventsSuccess = createAction('Events/deleteEventsSuccess')
 export const deleteEventsError = createAction('Events/deleteEventsError')
 
-export const updateEventsRequest = createAction('Events/updateEventsRequest')
-export const updateEventsSuccess = createAction('Events/updateEventsSuccess')
-export const updateEventsError = createAction('Events/updateEventsError')
+export const updateEventRequest = createAction('Events/updateEventRequest')
+export const updateEventSuccess = createAction('Events/updateEventSuccess')
+export const updateEventError = createAction('Events/updateEventError')
 
-// export const idEvent = createAction('Events/find');
+export const idEvent = createAction('Events/find');
