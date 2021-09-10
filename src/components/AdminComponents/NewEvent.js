@@ -7,8 +7,8 @@ import Hall from "../concertHall/Hall";
 
 export default function NewEvent({changeEvent}) {
   const viewHall = useSelector(eventHallsSelectors.getViewEventHall);
-
-  const [event, setEvent] = useState(viewHall.size[0].hall);
+  // console.log(viewHall)
+  const [event, setEvent] = useState(viewHall.size);
 
   const handelClickPlace = (row, place) => () => {
     setEvent(
@@ -22,14 +22,15 @@ export default function NewEvent({changeEvent}) {
             }
             return item;
           });
+          
           return { ...item, row };
         }
-
+        
         return item;
       })
     );
   };
-
+  console.log(event);
   const dispatch = useDispatch();
 
   const [currentPrice, setCurrentPrice] = useState(0);
@@ -37,7 +38,7 @@ export default function NewEvent({changeEvent}) {
   const handelDate = ({ target }) => {
     setDate(target.value);
   };
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState(viewHall.city);
   const handelCity = ({ target }) => {
     setCity(target.value);
   };
@@ -45,7 +46,7 @@ export default function NewEvent({changeEvent}) {
   const handelEventName = ({ target }) => {
     setEventName(target.value);
   };
-  const [concertHall, setConcertHall] = useState("");
+  const [concertHall, setConcertHall] = useState(viewHall.hallName);
   const handelConcertHall = ({ target }) => {
     setConcertHall(target.value);
   };
@@ -91,12 +92,12 @@ export default function NewEvent({changeEvent}) {
             <label>
               {" "}
               Введи город
-              <input type="text" name="city" onChange={handelCity} />
+              <input type="text" value={city} name="city" onChange={handelCity} />
             </label>
             <label>
               {" "}
               Введи название концертного-зала
-              <input type="text" name="hallName" onChange={handelConcertHall} />
+              <input type="text" value={concertHall} name="hallName" onChange={handelConcertHall} />
             </label>
             <label>
               {" "}

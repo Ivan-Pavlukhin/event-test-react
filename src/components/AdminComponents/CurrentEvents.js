@@ -31,7 +31,7 @@ export default function CurrentEvents({link}) {
                     to={{
                         pathname: link,
                         }} >
-                    <span>Название мероприятия: {event.name}</span><br />
+                    <span>Название мероприятия: {event.eventName}</span><br />
                     <span>Город проведения: {event.city}</span><br />
                     <span>Дата проведения: {event.dateEvent}</span><br />
                     <span>Название концертного зала: {event.hallName}</span><br />

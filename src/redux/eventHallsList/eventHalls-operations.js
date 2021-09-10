@@ -14,7 +14,7 @@ import {
   // updateEventHallsError,
 } from './eventHallsList-action';
 
-axios.defaults.baseURL = 'http://localhost:4000/'
+axios.defaults.baseURL = 'https://events-tests.herokuapp.com/'
 
 const fetchEventHalls = () => dispatch => {
     dispatch(fetchEventHallsRequest())
@@ -25,11 +25,11 @@ const fetchEventHalls = () => dispatch => {
         .catch(error => dispatch(fetchEventHallsError(error.message)))
 }
 
-const addEvent = (name, city, date, hall, about) => dispatch => {
+const addEvent = (data) => dispatch => {
   dispatch(addEventHallRequest())
 
   axios
-    .post('/api/v1/events')
+    .post('/api/v1/concert-halls', data)
     .then(({ data }) => dispatch(addEventHallSuccess(data)))
     .catch(error => dispatch(addEventHallError(error.message)))
 }

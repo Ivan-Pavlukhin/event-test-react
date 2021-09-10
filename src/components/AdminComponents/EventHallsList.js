@@ -17,7 +17,6 @@ export default function EventHallsList() {
     const loading = useSelector(eventHallsSelectors.getLoading)
 
     const eventsHalls = useSelector(eventHallsSelectors.getEventHalls) 
-
     return (
         <div>
             <h2>Event Halls List</h2>
@@ -31,7 +30,10 @@ export default function EventHallsList() {
                         state: {id: item._id}
                     }}>Название зала: {item.name}
                         <ul>
-                            <li>Город: {item.city}</li>
+                            <li>
+                                <span>Город: {item.city} </span>
+                                <span>Зал: {item.hallName}</span> 
+                            </li>
                             {item.phone && <li>Телефон: {item.phone}</li>}
                         </ul>
                     </Link>

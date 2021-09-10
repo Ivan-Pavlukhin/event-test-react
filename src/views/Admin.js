@@ -1,10 +1,11 @@
 import { Switch } from "react-router-dom"
 
-import { NewEvent } from "../components/AdminComponents"
-import { CurrentEvents } from "../components/AdminComponents"
-import { Analytics } from "../components/AdminComponents"
-import {EventHallsList} from "../components/AdminComponents"
-import ChangeEvent from "../components/AdminComponents/ChangeEvent"
+import { AddEventHall,
+    NewEvent,
+    CurrentEvents,
+    Analytics,
+    EventHallsList,
+    ChangeEvent } from "../components/AdminComponents"
 
 export default function Admin() {
     return (
@@ -16,6 +17,7 @@ export default function Admin() {
                 <CurrentEvents path="/admin/currentEvents" link={"/admin/changeEvent"}/>
                 <Analytics path="/admin/analytics" />
                 <ChangeEvent path="/admin/changeEvent" />
+                <AddEventHall path="/admin/addEventHall" />
             </Switch>
         </div>
     )

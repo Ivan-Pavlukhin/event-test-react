@@ -141,7 +141,7 @@ export default function ChangeEvent() {
                     <Hall event={event} price={currentPrice} handelClickPlace={handelClickPlace}/>
                     <label>About event</label>
                     <textarea onChange={handelChangeAbout} value={about}></textarea>
-                    <button type="submit">Add Event</button>
+                    <button type="submit">Change Event</button>
                 </form>
                 </>
             )}

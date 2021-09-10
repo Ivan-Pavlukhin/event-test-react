@@ -14,7 +14,7 @@ import {
   updateEventError,
 } from './events-action';
 
-axios.defaults.baseURL = 'http://localhost:4000/'
+axios.defaults.baseURL = 'https://events-tests.herokuapp.com/'
 
 const fetchEvents = () => dispatch => {
     dispatch(fetchEventsRequest())
@@ -27,7 +27,7 @@ const fetchEvents = () => dispatch => {
 
 const addEvent = event => dispatch => {
   const {eventStatus, date, city, eventName, concertHall, about, size} = event
-  const newEvent = {active: eventStatus, eventName, dateEvent: date, city, hallName: concertHall, aboutEvent: about, size:{ hall: size}  }
+  const newEvent = {active: eventStatus, eventName, dateEvent: date, city, hallName: concertHall, aboutEvent: about, size  }
   dispatch(addEventRequest())
 
   axios
