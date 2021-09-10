@@ -30,7 +30,6 @@ export default function NewEvent({changeEvent}) {
       })
     );
   };
-  console.log(event);
   const dispatch = useDispatch();
 
   const [currentPrice, setCurrentPrice] = useState(0);

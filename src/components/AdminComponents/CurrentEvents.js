@@ -24,7 +24,6 @@ export default function CurrentEvents({link}) {
             <h2>CurrentEvents</h2>
             <p>Выбери мероприятие чтобы просмотреть его и изменить</p>
             <ul>
-                {console.log("events-----",events)}
                 {events.map(event => <li key={event._id}>
                     <Link
                     onClick={handelClick(event._id)}

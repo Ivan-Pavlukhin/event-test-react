@@ -18,7 +18,6 @@ export default function Place({
         R: {rowName} status: {place.active ? "active" : "no active"}.
       </span> <br/>
       {place.sold && <span>SOLD</span>}
-      <span>SOLD</span>
     </button>
   );
 }
